@@ -1,13 +1,12 @@
 import {CurrencyAllRatesResponseHeader} from '../../api/currencyApi';
 
 type HeaderPropsType = {
-  dataRates?: CurrencyAllRatesResponseHeader
+  dataRates: CurrencyAllRatesResponseHeader | undefined
 }
 
 export default function Header({dataRates}: HeaderPropsType) {
 
-  const mapDataRates =
-    dataRates
+  const mapDataRates = dataRates
     && Object.keys(dataRates).map(item =>
       <li key={item}>
         <span>{item}</span>

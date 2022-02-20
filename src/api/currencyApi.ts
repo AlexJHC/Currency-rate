@@ -5,6 +5,7 @@ const currencyApiKey = process.env.REACT_APP_CURRENCY_KEY
 
 export const currencyApi = createApi({
   reducerPath: 'currencyApi',
+  refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://api.exchangeratesapi.io'
   }),
@@ -30,7 +31,7 @@ type CurrencyAllRatesResponseType = {
   header: CurrencyAllRatesResponseHeader
 }
 
-type allRatesType = {
+export type allRatesType = {
   AED: number
   AFN: number
   ALL: number

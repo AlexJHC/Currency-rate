@@ -1,1 +1,1 @@
-export const numberRound = (num:number) => +(num.toFixed(4))
+export const numberRound = (num: number) => +(num.toFixed(2))

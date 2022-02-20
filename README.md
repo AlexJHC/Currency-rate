@@ -4,4 +4,4 @@
   <li>API for currancy - / <li>
   <li>Two selelects for currancy whis conversion occur in both directions<li>
  <ul>
- <h3 align="center">Tehnology: CRA, RTQ query</h3>
+ <h3 align="center">Tehnology: CRA, Typescript, RTQ query</h3>

@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
+import Main from './components/main/Main';
 
-function App() {
+export default function App() {
   console.log(process.env.REACT_APP_CURRENCY_KEY)
   return (
-    <></>
+    <Main/>
   )
 }
 
-export default App;

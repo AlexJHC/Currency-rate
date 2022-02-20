@@ -4,16 +4,14 @@ import {currencyApi} from '../../api/currencyApi';
 export default function Main() {
 
   const {data, isFetching} = currencyApi.useFetchAllCurrencyQuery()
-  console.log(data)
+
+  const headerDataRates = data && data.header
 
   if (isFetching) return <div>Loading</div>
 
-  const headerRatesNames = ['USD', 'UAH']
-  const headerDataRates = data && data.header
-
   return (
     <>
-      <Header rates={headerRatesNames} dataRates={headerDataRates}/>
+      <Header dataRates={headerDataRates}/>
     </>
   )
 }

@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react';
+import {numberRound} from '../assets/helpers';
 
 const currencyApiKey = process.env.REACT_APP_CURRENCY_KEY
 
@@ -15,10 +16,10 @@ export const currencyApi = createApi({
           access_key: currencyApiKey,
         }
       }),
-      transformResponse: (allCurrency: CurrencyAllRatesResponseType): Promise<CurrencyAllRatesResponseType> | CurrencyAllRatesResponseType => {
-        const rateUAHtoEUR = allCurrency.rates.UAH
-        const rateUAHtoUSD = (allCurrency.rates.UAH / allCurrency.rates.USD)
-        return {rates: allCurrency.rates, header: {UAHtoUSD: rateUAHtoUSD, UAHtoEUR: rateUAHtoEUR}}
+      transformResponse: (allCurrency: CurrencyAllRatesResponseType): CurrencyAllRatesResponseType | Promise<CurrencyAllRatesResponseType> => {
+        const rateUAHtoEUR = numberRound(allCurrency.rates.UAH)
+        const rateUAHtoUSD = numberRound(allCurrency.rates.UAH / allCurrency.rates.USD)
+        return {rates: allCurrency.rates, header: {USD: rateUAHtoUSD, EUR: rateUAHtoEUR}}
       }
     })
   })
@@ -201,6 +202,6 @@ type allRatesType = {
 }
 
 export type CurrencyAllRatesResponseHeader = {
-  UAHtoUSD: number
-  UAHtoEUR: number
+  USD: number
+  EUR: number
 }

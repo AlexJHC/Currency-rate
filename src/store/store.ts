@@ -7,7 +7,7 @@ const reducer = {
 
 export const store = configureStore({
   reducer,
-  middleware: getDefaultMiddleware =>  getDefaultMiddleware().concat()
+  middleware: getDefaultMiddleware =>  getDefaultMiddleware().concat(currencyApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>

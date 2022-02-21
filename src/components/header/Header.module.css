@@ -1,0 +1,26 @@
+.NavBar {
+    display: flex;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 1px solid red;
+    color: white;
+    font-size: 1.3rem;
+    line-height: 3rem;
+    backdrop-filter: blur(4px);
+}
+
+.NavBar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: max(5vw, 20%);
+}
+
+.NavBar ul li {
+    display: flex;
+    gap: 7px;
+}

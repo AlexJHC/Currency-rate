@@ -1,0 +1,10 @@
+.content {
+    padding-top: 55px;
+    width: 100%;
+    height: max(30vh, 25rem);
+    display: flex;
+    border: 1px solid greenyellow;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+}

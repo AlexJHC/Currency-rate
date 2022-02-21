@@ -21,7 +21,7 @@ const initialCurrencyState: initialCurrencyStateType = {
     amount: '',
     exchangeRate: 0,
   },
-  isFirstAmountChange: true,
+  isFirstFieldChanged: true,
   isLoading: true,
   allCurrencyFullName: {
     AFA: 'Afghan Afghani',
@@ -205,21 +205,34 @@ const currencySlice = createSlice({
       state.secondField.exchangeRate = action.payload[state.secondField.name]
       state.allCurrencyNames = (Object.keys(action.payload) as allNamesType)
     },
-    setFirstFieldName(state: initialCurrencyStateType, action: PayloadAction<keyof allRatesType>) {
-      state.firstField.name = action.payload
+    setFieldName(state: initialCurrencyStateType, action: PayloadAction<keyof allRatesType>) {
+      if (state.isFirstFieldChanged) {
+        state.firstField.name = action.payload
+        state.firstField.fullName = state.allCurrencyFullName[action.payload as keyof allCurrencyNamesType]
+        state.firstField.exchangeRate = state.allRates[action.payload]
+      } else {
+        state.secondField.name = action.payload
+        state.secondField.fullName = state.allCurrencyFullName[action.payload as keyof allCurrencyNamesType]
+        state.secondField.exchangeRate = state.allRates[action.payload]
+      }
       state.firstField.amount = ''
       state.secondField.amount = ''
-      state.firstField.fullName = state.allCurrencyFullName[action.payload as keyof allCurrencyNamesType]
     },
-    setFirstFieldAmount(state: initialCurrencyStateType, action: PayloadAction<number>) {
-      state.firstField.amount = action.payload
+    setFieldAmount(state: initialCurrencyStateType, action: PayloadAction<number>) {
+      if (state.isFirstFieldChanged) {
+        state.firstField.amount = action.payload
+        state.secondField.amount = (state.secondField.exchangeRate / state.firstField.exchangeRate * state.firstField.amount)
+      } else {
+        state.secondField.amount = action.payload
+        state.firstField.amount = (state.firstField.exchangeRate / state.secondField.exchangeRate  * state.secondField.amount)
+      }
       if (action.payload === 0) {
         state.firstField.amount = ''
         state.secondField.amount = ''
       }
     },
-    setIsFirstAmountChange(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
-      state.isFirstAmountChange = action.payload
+    setisFirstFieldChanged(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
+      state.isFirstFieldChanged = action.payload
     },
     setLoading(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
@@ -230,9 +243,9 @@ const currencySlice = createSlice({
 export const {
   setState,
   setLoading,
-  setFirstFieldName,
-  setIsFirstAmountChange,
-  setFirstFieldAmount
+  setFieldName,
+  setisFirstFieldChanged,
+  setFieldAmount
 } = currencySlice.actions
 export default currencySlice.reducer
 
@@ -254,7 +267,7 @@ export type initialCurrencyStateType = {
     amount: number | ''
     exchangeRate: number
   },
-  isFirstAmountChange: boolean
+  isFirstFieldChanged: boolean
   isLoading: boolean
   allCurrencyFullName: allCurrencyNamesType
 }

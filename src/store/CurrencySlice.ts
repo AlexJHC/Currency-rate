@@ -11,12 +11,12 @@ const initialCurrencyState: initialCurrencyStateType = {
   },
   firstField: {
     fullName: '',
-    name: 'UAH',
+    name: 'USD',
     amount: '',
     exchangeRate: 0
   }, secondField: {
     fullName: '',
-    name: 'USD',
+    name: 'UAH',
     amount: '',
     exchangeRate: 0,
   },
@@ -163,6 +163,7 @@ const initialCurrencyState: initialCurrencyStateType = {
     SHP: 'St. Helena Pound',
     SDG: 'Sudanese Pound',
     SRD: 'Surinamese Dollar',
+    SSP: 'South Sudanese Pound',
     SZL: 'Swazi Lilangeni',
     SEK: 'Swedish Krona',
     CHF: 'Swiss Franc',
@@ -230,7 +231,7 @@ const currencySlice = createSlice({
         state.secondField.amount = ''
       }
     },
-    setisFirstFieldChanged(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
+    setIsFirstFieldChanged(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
       state.isFirstFieldChanged = action.payload
     },
     setLoading(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
@@ -243,7 +244,7 @@ export const {
   setState,
   setLoading,
   setFieldName,
-  setisFirstFieldChanged,
+  setIsFirstFieldChanged,
   setFieldAmount
 } = currencySlice.actions
 export default currencySlice.reducer
@@ -412,6 +413,7 @@ export type allCurrencyNamesType = {
   'SHP': 'St. Helena Pound'
   'SDG': 'Sudanese Pound'
   'SRD': 'Surinamese Dollar'
+  'SSP': 'South Sudanese Pound'
   'SZL': 'Swazi Lilangeni'
   'SEK': 'Swedish Krona'
   'CHF': 'Swiss Franc'

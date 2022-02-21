@@ -5,7 +5,7 @@ import {ChangeEvent, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   initialCurrencyStateType, setFieldAmount,
-  setFieldName, setisFirstFieldChanged,
+  setFieldName, setIsFirstFieldChanged,
   setLoading,
   setState
 } from '../../store/CurrencySlice';
@@ -41,13 +41,15 @@ export default function Main() {
   } = useSelector<RootState, initialCurrencyStateType>(state => state.currency)
 
   const handleFirstCurrencyName = (e: ChangeEvent<HTMLSelectElement>, isFirstField: boolean) => {
-    dispatch(setisFirstFieldChanged(isFirstField))
+    dispatch(setIsFirstFieldChanged(isFirstField))
     dispatch(setFieldName(e.currentTarget.value as keyof allRatesType))
   }
 
   const handleFirstCurrencyAmount = (e: ChangeEvent<HTMLInputElement>, isFirstField: boolean) => {
-    dispatch(setisFirstFieldChanged(isFirstField))
-    dispatch(setFieldAmount(+e.currentTarget.value.trim()))
+    dispatch(setIsFirstFieldChanged(isFirstField))
+    if (+e.currentTarget.value >= 0) {
+      dispatch(setFieldAmount(+e.currentTarget.value.trim()))
+    }
   }
 
   return (
@@ -73,7 +75,7 @@ export default function Main() {
           onChangeName={handleFirstCurrencyName}
           currencyAmount={SecondFieldAmount}
           onChangeAmount={handleFirstCurrencyAmount}/>
-        {!isLoading && <Loading/>}
+        {isLoading && <Loading/>}
       </section>
     </>
   )

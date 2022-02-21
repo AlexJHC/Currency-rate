@@ -22,6 +22,8 @@
     border-bottom: 1px solid grey;
     text-align: center;
     cursor: pointer;
+    background-color: white;
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 60%);
 }
 
 .exchangeField input {
@@ -31,6 +33,7 @@
     border-bottom: 1px solid grey;
     text-align: center;
     font-size: 1.3rem;
+
 }
 
 .exchangeField input:focus, select:focus{

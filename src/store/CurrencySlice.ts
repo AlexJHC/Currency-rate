@@ -196,13 +196,13 @@ const currencySlice = createSlice({
   reducers: {
     setState(state: initialCurrencyStateType, action: PayloadAction<allRatesType>) {
       state.allRates = action.payload
-      state.headerRate.EUR = numberRound(action.payload.UAH)
-      state.headerRate.USD = numberRound(action.payload.UAH / action.payload.USD)
+      state.headerRate.USD = numberRound(action.payload.UAH)
+      state.headerRate.EUR = numberRound(action.payload.UAH / action.payload.EUR)
       state.firstField.fullName = state.allCurrencyFullName[state.firstField.name as keyof allCurrencyNamesType]
       state.secondField.fullName = state.allCurrencyFullName[state.secondField.name as keyof allCurrencyNamesType]
       state.firstField.exchangeRate = action.payload[state.firstField.name]
       state.secondField.exchangeRate = action.payload[state.secondField.name]
-      state.allCurrencyNames = (Object.keys(action.payload) as allNamesType)
+      state.allCurrencyNames = (Object.keys(action.payload) as allNamesType).sort()
     },
     setFieldName(state: initialCurrencyStateType, action: PayloadAction<keyof allRatesType>) {
       if (state.isFirstFieldChanged) {
@@ -223,7 +223,7 @@ const currencySlice = createSlice({
         state.secondField.amount = (state.secondField.exchangeRate / state.firstField.exchangeRate * state.firstField.amount)
       } else {
         state.secondField.amount = action.payload
-        state.firstField.amount = (state.firstField.exchangeRate / state.secondField.exchangeRate  * state.secondField.amount)
+        state.firstField.amount = (state.firstField.exchangeRate / state.secondField.exchangeRate * state.secondField.amount)
       }
       if (action.payload === 0) {
         state.firstField.amount = ''

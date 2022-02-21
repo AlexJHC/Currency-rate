@@ -5,25 +5,25 @@ const currencyApiKey = process.env.REACT_APP_CURRENCY_KEY
 export const currencyApi = createApi({
   reducerPath: 'currencyApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://api.exchangeratesapi.io'
+    baseUrl: 'https://freecurrencyapi.net'
   }),
   endpoints: (build) => ({
     fetchAllCurrency: build.query<CurrencyAllRatesResponseType, void>({
       query: () => ({
-        url: `/v1/latest`,
+        url: `/api/v2/latest`,
         params: {
-          access_key: currencyApiKey,
+          apikey: currencyApiKey,
         }
       }),
       transformResponse: (allCurrency: CurrencyAllRatesResponseType): CurrencyAllRatesResponseType | Promise<CurrencyAllRatesResponseType> => {
-        return {rates: allCurrency.rates}
+        return {data: {...allCurrency.data, USD: 1}}
       }
     })
   })
 })
 
 type CurrencyAllRatesResponseType = {
-  rates: allRatesType,
+  data: allRatesType,
 }
 
 export type allRatesType = {
@@ -31,39 +31,30 @@ export type allRatesType = {
   AFN: number
   ALL: number
   AMD: number
-  ANG: number
   AOA: number
   ARS: number
   AUD: number
-  AWG: number
   AZN: number
-  BAM: number
-  BBD: number
   BDT: number
   BGN: number
   BHD: number
   BIF: number
-  BMD: number
+  BIH: number
   BND: number
   BOB: number
   BRL: number
   BSD: number
   BTC: number
-  BTN: number
   BWP: number
-  BYN: number
   BYR: number
-  BZD: number
   CAD: number
   CDF: number
   CHF: number
-  CLF: number
   CLP: number
   CNY: number
   COP: number
   CRC: number
   CUC: number
-  CUP: number
   CVE: number
   CZK: number
   DJF: number
@@ -73,31 +64,27 @@ export type allRatesType = {
   EGP: number
   ERN: number
   ETB: number
+  ETH: number
   EUR: number
   FJD: number
-  FKP: number
   GBP: number
   GEL: number
-  GGP: number
   GHS: number
-  GIP: number
   GMD: number
   GNF: number
   GTQ: number
   GYD: number
   HKD: number
   HNL: number
-  HRK: number
+  HRV: number
   HTG: number
   HUF: number
   IDR: number
   ILS: number
-  IMP: number
   INR: number
   IQD: number
   IRR: number
   ISK: number
-  JEP: number
   JMD: number
   JOD: number
   JPY: number
@@ -105,9 +92,7 @@ export type allRatesType = {
   KGS: number
   KHR: number
   KMF: number
-  KPW: number
   KRW: number
-  KWD: number
   KYD: number
   KZT: number
   LAK: number
@@ -115,8 +100,7 @@ export type allRatesType = {
   LKR: number
   LRD: number
   LSL: number
-  LTL: number
-  LVL: number
+  LTC: number
   LYD: number
   MAD: number
   MDL: number
@@ -125,7 +109,6 @@ export type allRatesType = {
   MMK: number
   MNT: number
   MOP: number
-  MRO: number
   MUR: number
   MVR: number
   MWK: number
@@ -152,15 +135,14 @@ export type allRatesType = {
   RUB: number
   RWF: number
   SAR: number
-  SBD: number
   SCR: number
   SDG: number
   SEK: number
   SGD: number
-  SHP: number
   SLL: number
   SOS: number
   SRD: number
+  SSP: number
   STD: number
   SVC: number
   SYP: number
@@ -169,32 +151,21 @@ export type allRatesType = {
   TJS: number
   TMT: number
   TND: number
-  TOP: number
   TRY: number
   TTD: number
   TWD: number
   TZS: number
   UAH: number
-  UGX: number
-  USD: number
-  UYU: number
+  URY: number
   UZS: number
-  VEF: number
   VND: number
-  VUV: number
-  WST: number
   XAF: number
-  XAG: number
-  XAU: number
-  XCD: number
-  XDR: number
   XOF: number
   XPF: number
+  XRP: number
   YER: number
   ZAR: number
-  ZMK: number
-  ZMW: number
-  ZWL: number
+  USD: number
 }
 
 export type CurrencyAllRatesResponseHeader = {

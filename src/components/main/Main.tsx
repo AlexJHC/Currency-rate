@@ -19,7 +19,7 @@ export default function Main() {
 
   useEffect(() => {
     data &&
-    dispatch(setState(data.rates))
+    dispatch(setState(data.data))
     dispatch(setLoading(isFetching))
   }, [data, dispatch, isFetching])
 

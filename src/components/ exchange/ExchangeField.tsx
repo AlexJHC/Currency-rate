@@ -1,7 +1,7 @@
 import {ChangeEvent} from "react"
 
 type ExchangeFieldPropsType = {
-  currencyNames: string[] | undefined
+  currencyNames: string[]
   currencyName: string
   onChangeName: (e: ChangeEvent<HTMLSelectElement>) => void
   currencyAmount: number | ''
@@ -13,8 +13,9 @@ export default function ExchangeField({
                                         currencyName,
                                         onChangeName,
                                         currencyAmount,
-                                        onChangeAmount
+                                        onChangeAmount,
                                       }: ExchangeFieldPropsType) {
+
 
   const mapCurrencyNames = currencyNames
     && currencyNames.map(name =>

@@ -1,11 +1,11 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AsyncThunkFulfilledActionCreator} from '@reduxjs/toolkit/dist/createAsyncThunk';
 import {allRatesType, CurrencyAllRatesResponseHeader, currencyApi} from '../api/currencyApi';
 import {useDispatch} from 'react-redux';
 import {numberRound} from '../assets/helpers';
 
 const initialCurrencyState: initialCurrencyStateType = {
   allRates: {} as allRatesType,
+  allCurrencyNames: [] as allNamesType,
   headerRate: {
     USD: 0,
     EUR: 0,
@@ -23,7 +23,7 @@ const initialCurrencyState: initialCurrencyStateType = {
   },
   isFirstAmountChange: true,
   isLoading: true,
-  allCurrencyNames: {
+  allCurrencyFullName: {
     AFA: 'Afghan Afghani',
     ALL: 'Albanian Lek',
     DZD: 'Algerian Dinar',
@@ -199,10 +199,27 @@ const currencySlice = createSlice({
       state.allRates = action.payload
       state.headerRate.EUR = numberRound(action.payload.UAH)
       state.headerRate.USD = numberRound(action.payload.UAH / action.payload.USD)
-      state.firstField.fullName = state.allCurrencyNames[state.firstField.name as keyof allCurrencyNamesType]
-      state.secondField.fullName = state.allCurrencyNames[state.secondField.name as keyof allCurrencyNamesType]
+      state.firstField.fullName = state.allCurrencyFullName[state.firstField.name as keyof allCurrencyNamesType]
+      state.secondField.fullName = state.allCurrencyFullName[state.secondField.name as keyof allCurrencyNamesType]
       state.firstField.exchangeRate = action.payload[state.firstField.name]
       state.secondField.exchangeRate = action.payload[state.secondField.name]
+      state.allCurrencyNames = (Object.keys(action.payload) as allNamesType)
+    },
+    setFirstFieldName(state: initialCurrencyStateType, action: PayloadAction<keyof allRatesType>) {
+      state.firstField.name = action.payload
+      state.firstField.amount = ''
+      state.secondField.amount = ''
+      state.firstField.fullName = state.allCurrencyFullName[action.payload as keyof allCurrencyNamesType]
+    },
+    setFirstFieldAmount(state: initialCurrencyStateType, action: PayloadAction<number>) {
+      state.firstField.amount = action.payload
+      if (action.payload === 0) {
+        state.firstField.amount = ''
+        state.secondField.amount = ''
+      }
+    },
+    setIsFirstAmountChange(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
+      state.isFirstAmountChange = action.payload
     },
     setLoading(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
@@ -210,11 +227,20 @@ const currencySlice = createSlice({
   },
 })
 
-export const {setState, setLoading} = currencySlice.actions
+export const {
+  setState,
+  setLoading,
+  setFirstFieldName,
+  setIsFirstAmountChange,
+  setFirstFieldAmount
+} = currencySlice.actions
 export default currencySlice.reducer
+
+type allNamesType = Array<keyof allRatesType>
 
 export type initialCurrencyStateType = {
   allRates: allRatesType
+  allCurrencyNames: allNamesType
   headerRate: CurrencyAllRatesResponseHeader
   firstField: {
     fullName: string
@@ -230,11 +256,11 @@ export type initialCurrencyStateType = {
   },
   isFirstAmountChange: boolean
   isLoading: boolean
-  allCurrencyNames: allCurrencyNamesType
+  allCurrencyFullName: allCurrencyNamesType
 }
 
-type allCurrencyNamesType = {
-  'AFA': 'Afghan Afghani'
+export type allCurrencyNamesType = {
+  AFA: 'Afghan Afghani'
   'ALL': 'Albanian Lek'
   'DZD': 'Algerian Dinar'
   'AOA': 'Angolan Kwanza'

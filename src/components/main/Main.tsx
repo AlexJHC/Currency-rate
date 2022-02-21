@@ -3,13 +3,17 @@ import {allRatesType, currencyApi} from '../../api/currencyApi';
 import Exchange from '../ exchange/ExchangeField';
 import {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {initialCurrencyStateType, setLoading, setState} from '../../store/CurrencySlice';
-import {RootState} from '../../store/store';
+import {
+  initialCurrencyStateType, setFirstFieldAmount,
+  setFirstFieldName,
+  setLoading,
+  setState
+} from '../../store/CurrencySlice';
+import {AppDispatch, RootState} from '../../store/store';
 
 export default function Main() {
+  const dispatch = useDispatch<AppDispatch>()
 
-  const dispatch = useDispatch()
-  const {headerRate} = useSelector<RootState, initialCurrencyStateType>(state => state.currency)
   const {data, isFetching} = currencyApi.useFetchAllCurrencyQuery()
 
   useEffect(() => {
@@ -18,53 +22,67 @@ export default function Main() {
     dispatch(setLoading(isFetching))
   }, [data, dispatch, isFetching])
 
+  const {
+    headerRate,
+    firstField: {
+      name: FirstFieldName,
+      amount: FirstFieldAmount
+    },
+    allCurrencyNames,
+  } = useSelector<RootState, initialCurrencyStateType>(state => state.currency)
 
-  //Headers Currency rate
-  // const headerDataRates = data && data.header
-  // const currencyNames = data && Object.keys(data.rates)
 
-  // ExchangeField data
-  const [isFirstCurrencyAmountChange, setIsFirstCurrencyAmountChange] = useState<boolean>(true)
+  // // ExchangeField data
+  // const [isFirstCurrencyAmountChange, setIsFirstCurrencyAmountChange] = useState<boolean>(true)
 
 
   // first exchangeField
   const [firstCurrencyName, setFirstCurrency] = useState<string>('UAH')
-  const [firstCurrencyAmount, setFirstCurrencyAmount] = useState<number | ''>(1)
-
-
-  const handleFirstCurrencyName = (e: ChangeEvent<HTMLSelectElement>) => {
-    setFirstCurrency(e.currentTarget.value)
-    setSecondCurrencyAmount('')
-    setFirstCurrencyAmount('')
-  }
-
-  const handleFirstCurrencyAmount = (e: ChangeEvent<HTMLInputElement>) => {
-    setFirstCurrencyAmount(+e.currentTarget.value.trim())
-    setIsFirstCurrencyAmountChange(true)
-    if (+e.currentTarget.value === 0) {
-      setFirstCurrencyAmount('')
-      setSecondCurrencyAmount('')
-    }
-  }
-
+  // const [firstCurrencyAmount, setFirstCurrencyAmount] = useState<number | ''>(1)
   // second exchangeField
   const [secondCurrencyName, setSecondCurrency] = useState<string>('USD')
   const [secondCurrencyAmount, setSecondCurrencyAmount] = useState<number | ''>('')
 
 
-  const handleSecondCurrencyName = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSecondCurrency(e.currentTarget.value)
-    setSecondCurrencyAmount('')
-    setFirstCurrencyAmount('')
+  const handleFirstCurrencyName = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setFirstFieldName(e.currentTarget.value as keyof allRatesType))
   }
-  const handleSecondCurrencyAmount = (e: ChangeEvent<HTMLInputElement>) => {
-    setSecondCurrencyAmount(+e.currentTarget.value.trim())
-    setIsFirstCurrencyAmountChange(false)
-    if (+e.currentTarget.value === 0) {
-      setSecondCurrencyAmount('')
-      setFirstCurrencyAmount('')
-    }
+
+
+  // const handleFirstCurrencyAmount = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setFirstCurrencyAmount(+e.currentTarget.value.trim())
+  //   console.log(firstCurrencyAmount)
+  //   // dispatch(setIsFirstCurrencyAmountChange(true))
+  //   // dispatch(setFirstFieldAmount(+e.currentTarget.value.trim()))
+  //   //
+  //   // if (+e.currentTarget.value === 0) {
+  //   //   setFirstCurrencyAmount('')
+  //   //   setSecondCurrencyAmount('')
+  //   // }
+  // }
+
+  const handleFirstCurrencyAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setFirstFieldAmount(+e.currentTarget.value.trim()))
   }
+
+
+  //
+  //
+  //
+  //
+  // const handleSecondCurrencyName = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   setSecondCurrency(e.currentTarget.value)
+  //   setSecondCurrencyAmount('')
+  //   setFirstCurrencyAmount('')
+  // }
+  // const handleSecondCurrencyAmount = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setSecondCurrencyAmount(+e.currentTarget.value.trim())
+  //   setIsFirstCurrencyAmountChange(false)
+  //   if (+e.currentTarget.value === 0) {
+  //     setSecondCurrencyAmount('')
+  //     setFirstCurrencyAmount('')
+  //   }
+  // }
 
   // useEffect(() => {
   //   const firstExchangeRate = data && data.rates[firstCurrencyName as keyof allRatesType]
@@ -90,19 +108,18 @@ export default function Main() {
     <>
       <Header
         dataRates={headerRate}/>
-      {/*<Exchange*/}
-      {/*  currencyNames={currencyNames}*/}
-      {/*  currencyName={firstCurrencyName}*/}
-      {/*  onChangeName={handleFirstCurrencyName}*/}
-      {/*  currencyAmount={firstCurrencyAmount}*/}
-      {/*  onChangeAmount={handleFirstCurrencyAmount}/>*/}
+      <Exchange
+        currencyNames={allCurrencyNames}
+        currencyName={FirstFieldName}
+        onChangeName={handleFirstCurrencyName}
+        currencyAmount={FirstFieldAmount}
+        onChangeAmount={handleFirstCurrencyAmount}/>
       {/*<Exchange*/}
       {/*  currencyNames={currencyNames}*/}
       {/*  currencyName={secondCurrencyName}*/}
       {/*  onChangeName={handleSecondCurrencyName}*/}
       {/*  currencyAmount={secondCurrencyAmount}*/}
       {/*  onChangeAmount={handleSecondCurrencyAmount}/>*/}
-      <div></div>
     </>
   )
 }

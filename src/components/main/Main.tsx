@@ -1,6 +1,6 @@
-import Header from "../header/Header";
+import Header from "../features/header/Header";
 import {allRatesType, currencyApi} from '../../api/currencyApi';
-import Exchange from '../exchange/ExchangeField';
+import Exchange from '../features/exchange/ExchangeField';
 import {ChangeEvent, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -11,6 +11,7 @@ import {
 } from '../../store/CurrencySlice';
 import {AppDispatch, RootState} from '../../store/store';
 import style from './Main.module.css'
+import Loading from '../features/Loading/Loading';
 
 export default function Main() {
   const dispatch = useDispatch<AppDispatch>()
@@ -36,6 +37,7 @@ export default function Main() {
       fullName: SecondFieldFullName,
     },
     allCurrencyNames,
+    isLoading
   } = useSelector<RootState, initialCurrencyStateType>(state => state.currency)
 
   const handleFirstCurrencyName = (e: ChangeEvent<HTMLSelectElement>, isFirstField: boolean) => {
@@ -71,6 +73,7 @@ export default function Main() {
           onChangeName={handleFirstCurrencyName}
           currencyAmount={SecondFieldAmount}
           onChangeAmount={handleFirstCurrencyAmount}/>
+        {!isLoading && <Loading/>}
       </section>
     </>
   )

@@ -1,4 +1,4 @@
-import {CurrencyAllRatesResponseHeader} from '../../api/currencyApi';
+import {CurrencyAllRatesResponseHeader} from '../../../api/currencyApi';
 import style from './Header.module.css'
 
 type HeaderPropsType = {

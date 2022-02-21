@@ -1,6 +1,6 @@
 import Header from "../header/Header";
 import {allRatesType, currencyApi} from '../../api/currencyApi';
-import Exchange from '../ exchange/ExchangeField';
+import Exchange from '../exchange/ExchangeField';
 import {ChangeEvent, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Currency rate",
+  "name": "Create React App Currency rate",
   "icons": [
     {
       "src": "favicon.ico",

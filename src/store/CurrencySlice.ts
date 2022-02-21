@@ -1,6 +1,5 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {allRatesType, CurrencyAllRatesResponseHeader, currencyApi} from '../api/currencyApi';
-import {useDispatch} from 'react-redux';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {allRatesType, CurrencyAllRatesResponseHeader} from '../api/currencyApi';
 import {numberRound} from '../assets/helpers';
 
 const initialCurrencyState: initialCurrencyStateType = {

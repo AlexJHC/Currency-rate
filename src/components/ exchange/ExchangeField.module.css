@@ -1,0 +1,41 @@
+.exchangeField {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.exchangeField h3 {
+    font-size: max(1.3rem, 2.1vw);
+    margin: 7px;
+    font-weight: 100;
+    text-shadow: 0 0 3px black;
+}
+
+.exchangeField select {
+    transform: translateX(45px);
+    margin-top: 25px;
+    width: min(120px, 20%);
+    height: min(45px, 40%);
+    border: none;
+    border-bottom: 1px solid grey;
+    text-align: center;
+    cursor: pointer;
+}
+
+.exchangeField input {
+    width: min(650px, 65%);
+    height: min(65px, 9vh);
+    border: none;
+    border-bottom: 1px solid grey;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.exchangeField input:focus, select:focus{
+    outline: none;
+    border-bottom: 1px solid black;
+}
+
+

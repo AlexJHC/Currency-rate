@@ -13,7 +13,7 @@ const initialCurrencyState: initialCurrencyStateType = {
   firstField: {
     fullName: '',
     name: 'UAH',
-    amount: 1,
+    amount: '',
     exchangeRate: 0
   }, secondField: {
     fullName: '',

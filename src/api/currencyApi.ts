@@ -15,11 +15,6 @@ export const currencyApi = createApi({
           access_key: currencyApiKey,
         }
       }),
-      // transformResponse: (allCurrency: CurrencyAllRatesResponseType): CurrencyAllRatesResponseType | Promise<CurrencyAllRatesResponseType> => {
-      //   const rateUAHtoEUR = numberRound(allCurrency.rates.UAH)
-      //   const rateUAHtoUSD = numberRound(allCurrency.rates.UAH / allCurrency.rates.USD)
-      //   return {rates: allCurrency.rates, header: {USD: rateUAHtoUSD, EUR: rateUAHtoEUR}}
-      // }
       transformResponse: (allCurrency: CurrencyAllRatesResponseType): CurrencyAllRatesResponseType | Promise<CurrencyAllRatesResponseType> => {
         return {rates: allCurrency.rates}
       }

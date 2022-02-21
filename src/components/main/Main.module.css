@@ -1,10 +1,18 @@
 .content {
-    padding-top: 55px;
-    width: 100%;
     height: max(30vh, 25rem);
     display: flex;
-    border: 1px solid greenyellow;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     flex-direction: column;
+    min-height: calc(100vh - 45px);
+    color: black;
+}
+
+.content h1 {
+    font-size: max(3rem, 7vw);
+}
+
+.content span {
+    font-size: 5rem;
+    text-shadow: 1px 1px 2px white, 0 0 0.2em black;
 }

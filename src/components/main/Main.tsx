@@ -27,11 +27,13 @@ export default function Main() {
     headerRate,
     firstField: {
       name: FirstFieldName,
-      amount: FirstFieldAmount
+      amount: FirstFieldAmount,
+      fullName: FirstFieldFullName,
     },
     secondField: {
       name: SecondFieldName,
-      amount: SecondFieldAmount
+      amount: SecondFieldAmount,
+      fullName: SecondFieldFullName,
     },
     allCurrencyNames,
   } = useSelector<RootState, initialCurrencyStateType>(state => state.currency)
@@ -54,14 +56,16 @@ export default function Main() {
         <h1>Currency rate</h1>
         <Exchange
           firstField
+          fullName={FirstFieldFullName}
           currencyNames={allCurrencyNames}
           currencyName={FirstFieldName}
           onChangeName={handleFirstCurrencyName}
           currencyAmount={FirstFieldAmount}
           onChangeAmount={handleFirstCurrencyAmount}/>
-        <span>=</span>
+        <span>💸</span>
         <Exchange
           firstField={false}
+          fullName={SecondFieldFullName}
           currencyNames={allCurrencyNames}
           currencyName={SecondFieldName}
           onChangeName={handleFirstCurrencyName}

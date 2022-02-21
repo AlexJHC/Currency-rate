@@ -1,4 +1,5 @@
 import {ChangeEvent} from "react"
+import style from './ExchangeField.module.css'
 
 type ExchangeFieldPropsType = {
   currencyNames: string[]
@@ -7,8 +8,8 @@ type ExchangeFieldPropsType = {
   currencyAmount: number | ''
   onChangeAmount: (e: ChangeEvent<HTMLInputElement>, isFirstField: boolean) => void
   firstField: boolean
+  fullName:string
 }
-
 export default function ExchangeField({
                                         currencyNames,
                                         currencyName,
@@ -16,6 +17,7 @@ export default function ExchangeField({
                                         currencyAmount,
                                         onChangeAmount,
                                         firstField,
+                                        fullName
                                       }: ExchangeFieldPropsType) {
 
   const mapCurrencyNames = currencyNames
@@ -32,7 +34,8 @@ export default function ExchangeField({
   }
 
   return (
-    <div>
+    <div className={style.exchangeField}>
+      <h3>{fullName}</h3>
       <input type="number" value={currencyAmount} onChange={handleChangeInput}/>
       <select value={currencyName} onChange={handleChangeSelect}>
         {mapCurrencyNames}

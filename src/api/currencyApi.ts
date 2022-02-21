@@ -1,11 +1,9 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react';
-import {numberRound} from '../assets/helpers';
 
 const currencyApiKey = process.env.REACT_APP_CURRENCY_KEY
 
 export const currencyApi = createApi({
   reducerPath: 'currencyApi',
-  refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://api.exchangeratesapi.io'
   }),
@@ -17,10 +15,13 @@ export const currencyApi = createApi({
           access_key: currencyApiKey,
         }
       }),
+      // transformResponse: (allCurrency: CurrencyAllRatesResponseType): CurrencyAllRatesResponseType | Promise<CurrencyAllRatesResponseType> => {
+      //   const rateUAHtoEUR = numberRound(allCurrency.rates.UAH)
+      //   const rateUAHtoUSD = numberRound(allCurrency.rates.UAH / allCurrency.rates.USD)
+      //   return {rates: allCurrency.rates, header: {USD: rateUAHtoUSD, EUR: rateUAHtoEUR}}
+      // }
       transformResponse: (allCurrency: CurrencyAllRatesResponseType): CurrencyAllRatesResponseType | Promise<CurrencyAllRatesResponseType> => {
-        const rateUAHtoEUR = numberRound(allCurrency.rates.UAH)
-        const rateUAHtoUSD = numberRound(allCurrency.rates.UAH / allCurrency.rates.USD)
-        return {rates: allCurrency.rates, header: {USD: rateUAHtoUSD, EUR: rateUAHtoEUR}}
+        return {rates: allCurrency.rates}
       }
     })
   })
@@ -28,7 +29,6 @@ export const currencyApi = createApi({
 
 type CurrencyAllRatesResponseType = {
   rates: allRatesType,
-  header: CurrencyAllRatesResponseHeader
 }
 
 export type allRatesType = {

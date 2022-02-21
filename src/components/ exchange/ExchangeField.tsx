@@ -21,6 +21,7 @@ export default function ExchangeField({
       <option key={name} value={name}>{name}</option>
     )
 
+
   return (
     <div>
       <input type="number" value={currencyAmount} onChange={onChangeAmount}/>

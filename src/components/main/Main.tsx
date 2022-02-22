@@ -4,25 +4,27 @@ import Exchange from '../features/exchange/ExchangeField';
 import {ChangeEvent, useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  initialCurrencyStateType, setFieldAmount,
+  initialCurrencyStateType, setError, setFieldAmount,
   setFieldName, setIsFirstFieldChanged,
   setLoading,
   setState
 } from '../../store/CurrencySlice';
 import {AppDispatch, RootState} from '../../store/store';
 import style from './Main.module.css'
-import Loading from '../features/Loading/Loading';
+import Loading from '../features/loading/Loading';
+import Error from '../features/error/Error';
 
 export default function Main() {
   const dispatch = useDispatch<AppDispatch>()
 
-  const {data, isFetching} = currencyApi.useFetchAllCurrencyQuery()
+  const {data, isFetching, isError} = currencyApi.useFetchAllCurrencyQuery()
 
   useEffect(() => {
     data &&
     dispatch(setState(data.data))
     dispatch(setLoading(isFetching))
-  }, [data, dispatch, isFetching])
+    dispatch(setError(isError))
+  }, [data, dispatch, isFetching, isError])
 
   const {
     headerRate,
@@ -37,19 +39,24 @@ export default function Main() {
       fullName: SecondFieldFullName,
     },
     allCurrencyNames,
-    isLoading
+    isLoading,
+    isError: globalError,
   } = useSelector<RootState, initialCurrencyStateType>(state => state.currency)
 
-  const handleFirstCurrencyName = useCallback ((e: ChangeEvent<HTMLSelectElement>, isFirstField: boolean) => {
+  const handleFirstCurrencyName = useCallback((e: ChangeEvent<HTMLSelectElement>, isFirstField: boolean) => {
     dispatch(setIsFirstFieldChanged(isFirstField))
     dispatch(setFieldName(e.currentTarget.value as keyof allRatesType))
-  },[dispatch])
+  }, [dispatch])
 
   const handleFirstCurrencyAmount = useCallback((e: ChangeEvent<HTMLInputElement>, isFirstField: boolean) => {
     dispatch(setIsFirstFieldChanged(isFirstField))
     if (+e.currentTarget.value >= 0) {
       dispatch(setFieldAmount(+e.currentTarget.value.trim()))
     }
+  }, [dispatch])
+
+  const handleDisableError = useCallback (() => {
+    dispatch(setError(false))
   },[dispatch])
 
   return (
@@ -75,6 +82,9 @@ export default function Main() {
           onChangeName={handleFirstCurrencyName}
           currencyAmount={SecondFieldAmount}
           onChangeAmount={handleFirstCurrencyAmount}/>
+        <Error
+          disableError={handleDisableError}
+          isError={globalError}/>
         {isLoading && <Loading/>}
       </section>
     </>

@@ -22,6 +22,7 @@ const initialCurrencyState: initialCurrencyStateType = {
   },
   isFirstFieldChanged: true,
   isLoading: true,
+  isError: false,
   allCurrencyFullName: {
     AFA: 'Afghan Afghani',
     ALL: 'Albanian Lek',
@@ -244,7 +245,10 @@ const currencySlice = createSlice({
     },
     setLoading(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
-    }
+    },
+    setError(state: initialCurrencyStateType, action: PayloadAction<boolean>) {
+      state.isError = action.payload
+    },
   },
 })
 
@@ -253,7 +257,8 @@ export const {
   setLoading,
   setFieldName,
   setIsFirstFieldChanged,
-  setFieldAmount
+  setFieldAmount,
+  setError,
 } = currencySlice.actions
 export default currencySlice.reducer
 
@@ -277,6 +282,7 @@ export type initialCurrencyStateType = {
   },
   isFirstFieldChanged: boolean
   isLoading: boolean
+  isError: boolean
   allCurrencyFullName: allCurrencyNamesType
 }
 

@@ -1,0 +1,38 @@
+.error {
+    min-width: 300px;
+    padding: 10px 20px;
+    background: red;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #ffffff;
+    font-size: 25px;
+    visibility: hidden;
+    display: inline-flex;
+    z-index: 1;
+}
+
+.active {
+    animation: error 4s ease;
+}
+
+@keyframes error {
+    0% {
+        opacity: 0;
+        visibility: visible;
+    }
+    30% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
+    }
+}

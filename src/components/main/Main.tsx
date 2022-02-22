@@ -1,7 +1,7 @@
 import Header from "../features/header/Header";
 import {allRatesType, currencyApi} from '../../api/currencyApi';
 import Exchange from '../features/exchange/ExchangeField';
-import {ChangeEvent, useEffect} from 'react';
+import {ChangeEvent, useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   initialCurrencyStateType, setFieldAmount,
@@ -40,17 +40,17 @@ export default function Main() {
     isLoading
   } = useSelector<RootState, initialCurrencyStateType>(state => state.currency)
 
-  const handleFirstCurrencyName = (e: ChangeEvent<HTMLSelectElement>, isFirstField: boolean) => {
+  const handleFirstCurrencyName = useCallback ((e: ChangeEvent<HTMLSelectElement>, isFirstField: boolean) => {
     dispatch(setIsFirstFieldChanged(isFirstField))
     dispatch(setFieldName(e.currentTarget.value as keyof allRatesType))
-  }
+  },[dispatch])
 
-  const handleFirstCurrencyAmount = (e: ChangeEvent<HTMLInputElement>, isFirstField: boolean) => {
+  const handleFirstCurrencyAmount = useCallback((e: ChangeEvent<HTMLInputElement>, isFirstField: boolean) => {
     dispatch(setIsFirstFieldChanged(isFirstField))
     if (+e.currentTarget.value >= 0) {
       dispatch(setFieldAmount(+e.currentTarget.value.trim()))
     }
-  }
+  },[dispatch])
 
   return (
     <>

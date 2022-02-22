@@ -1,12 +1,12 @@
 import {CurrencyAllRatesResponseHeader} from '../../../api/currencyApi';
 import style from './Header.module.css'
+import React from 'react';
 
 type HeaderPropsType = {
   dataRates: CurrencyAllRatesResponseHeader | undefined
 }
 
-export default function Header({dataRates}: HeaderPropsType) {
-
+export default React.memo(function Header({dataRates}: HeaderPropsType) {
   const mapDataRates = dataRates
     && Object.keys(dataRates).map(item =>
       <li key={item}>
@@ -22,4 +22,4 @@ export default function Header({dataRates}: HeaderPropsType) {
       </ul>
     </header>
   )
-}
+})

@@ -1,4 +1,4 @@
-import {ChangeEvent} from "react"
+import React, {ChangeEvent} from "react"
 import style from './ExchangeField.module.css'
 
 type ExchangeFieldPropsType = {
@@ -10,7 +10,8 @@ type ExchangeFieldPropsType = {
   firstField: boolean
   fullName:string
 }
-export default function ExchangeField({
+export default React.memo( function ExchangeField({
+
                                         currencyNames,
                                         currencyName,
                                         onChangeName,
@@ -42,4 +43,4 @@ export default function ExchangeField({
       </select>
     </div>
   )
-}
+})

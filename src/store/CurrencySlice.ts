@@ -187,7 +187,15 @@ const initialCurrencyState: initialCurrencyStateType = {
     VEF: 'Venezuelan BolÃvar',
     VND: 'Vietnamese Dong',
     YER: 'Yemeni Rial',
-    ZMK: 'Zambian Kwacha'
+    ZMK: 'Zambian Kwacha',
+    AFN : 'Afghan Afghani',
+    BIH : 'Bosnia and Herzegovina conv. Mark',
+    ETH : 'Ethereum',
+    HRV : 'Compra Coin',
+    LTC : 'Litecoin',
+    MZN : 'Mozambique New Metical',
+    URY : 'Uruguayan Peso',
+    XRP : 'Ripple XRP',
   }
 }
 
@@ -438,5 +446,13 @@ export type allCurrencyNamesType = {
   'VND': 'Vietnamese Dong'
   'YER': 'Yemeni Rial'
   'ZMK': 'Zambian Kwacha'
+  'AFN': 'Afghan Afghani'
+  'BIH': 'Bosnia and Herzegovina conv. Mark'
+  'ETH': 'Ethereum'
+  'HRV': 'Compra Coin'
+  'LTC': 'Litecoin'
+  'MZN': 'Mozambique New Metical'
+  'URY': 'Uruguayan Peso'
+  'XRP': 'Ripple XRP'
 }
 

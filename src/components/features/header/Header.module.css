@@ -17,7 +17,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    gap: max(5vw, 20%);
+    gap: max(4vw, 7%);
 }
 
 .NavBar ul li {

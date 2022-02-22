@@ -10,7 +10,7 @@ export default React.memo(function Header({dataRates}: HeaderPropsType) {
   const mapDataRates = dataRates
     && Object.keys(dataRates).map(item =>
       <li key={item}>
-        <span>{item}:</span>
+        <span>{item}/UAH:</span>
         <span>{dataRates
           && dataRates[item as keyof CurrencyAllRatesResponseHeader]}</span>
       </li>)

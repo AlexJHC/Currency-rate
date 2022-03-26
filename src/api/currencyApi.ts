@@ -10,7 +10,7 @@ export const currencyApi = createApi({
   endpoints: (build) => ({
     fetchAllCurrency: build.query<CurrencyAllRatesResponseType, void>({
       query: () => ({
-        url: `/api/v2/latest`,
+        url: `/v2/latest`,
         params: {
           apikey: currencyApiKey,
         }

@@ -5,7 +5,7 @@ const currencyApiKey = process.env.REACT_APP_CURRENCY_KEY
 export const currencyApi = createApi({
   reducerPath: 'currencyApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://freecurrencyapi.net'
+    baseUrl: 'https://api.currencyapi.com'
   }),
   endpoints: (build) => ({
     fetchAllCurrency: build.query<CurrencyAllRatesResponseType, void>({
